@@ -4,7 +4,7 @@ mod model;
 use db::init_db;
 use model::App_data;
 
-use api::{change_title_status, delete_task, get_task, get_tasks, submitTask};
+use api::{change_title_status, delete_task, get_task, get_tasks, submit_task};
 
 use actix_web::{web, App, HttpServer};
 
@@ -22,8 +22,8 @@ async fn main() -> std::io::Result<()> {
             .route("/task", web::get().to(get_tasks))
             .route("/task/{id}", web::get().to(get_task))
             .route("/task/{id}/", web::get().to(get_task))
-            .route("/task", web::post().to(submitTask))
-            .route("/task/", web::post().to(submitTask))
+            .route("/task", web::post().to(submit_task))
+            .route("/task/", web::post().to(submit_task))
             .route("/task/{id}", web::delete().to(delete_task))
             .route("/task/{id}/", web::delete().to(delete_task))
             .route("/task/{id}", web::patch().to(change_title_status))

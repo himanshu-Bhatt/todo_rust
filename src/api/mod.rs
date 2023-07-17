@@ -2,7 +2,6 @@ use crate::model::{App_data, Task, Task_init, Task_patch, TodoStatusEnum};
 
 use actix_web::{web, HttpResponse, Responder};
 
-
 pub async fn get_tasks(data: web::Data<App_data>) -> impl Responder {
     let _content = sqlx::query_as::<_, Task>(
         r#"SELECT id,cid,ctime ,mid ,mtime ,title,status  from todo order by ctime desc"#,
@@ -27,7 +26,7 @@ pub async fn get_task(path: web::Path<u32>, data: web::Data<App_data>) -> impl R
     return HttpResponse::Ok().json(_content);
 }
 
-pub async fn submitTask(
+pub async fn submit_task(
     req_body: web::Json<Task_init>,
     data: web::Data<App_data>,
 ) -> impl Responder {
@@ -69,7 +68,7 @@ pub async fn change_title_status(
         return HttpResponse::Ok().json(res);
     } else {
         if let Some(_status) = status {
-            let _status = getStatusFromString(_status);
+            let _status = get_status_from_string(_status);
 
             let res =
                 sqlx::query_as::<_, Task>(r#"update todo set status=$1 where id=$2 returning *"#)
@@ -85,7 +84,7 @@ pub async fn change_title_status(
     return HttpResponse::NoContent().json("");
 }
 
-pub fn getStatusFromString(status: String) -> TodoStatusEnum {
+pub fn get_status_from_string(status: String) -> TodoStatusEnum {
     if status == "Close" || status == "close" {
         return TodoStatusEnum::Close;
     } else {
