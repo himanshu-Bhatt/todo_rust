@@ -1,7 +1,7 @@
 use crate::model::{App_data, Task, Task_init, Task_patch, TodoStatusEnum};
 
-use actix_web::{delete, get, patch, post, put, web, App, HttpResponse, HttpServer, Responder};
-use serde::{Deserialize, Serialize};
+use actix_web::{web, HttpResponse, Responder};
+
 
 pub async fn get_tasks(data: web::Data<App_data>) -> impl Responder {
     let _content = sqlx::query_as::<_, Task>(
