@@ -1,10 +1,7 @@
-use std::path::{self, Path};
-#[allow(dead_code)]
 use std::time::Duration;
-use std::{env, fs};
 
-use sqlx::postgres::{PgPool, PgPoolOptions};
-use sqlx::{query, query_file, Pool, Postgres};
+use sqlx::postgres::PgPoolOptions;
+use sqlx::{Pool, Postgres};
 
 type Db = Pool<Postgres>;
 
@@ -22,4 +19,3 @@ pub async fn init_db() -> Result<Db, sqlx::Error> {
         .connect(&con_url)
         .await;
 }
-
