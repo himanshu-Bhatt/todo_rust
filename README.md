@@ -46,3 +46,8 @@ Start Server
 ```bash
   Cargo run
 ```
+
+## Roadmap
+
+- write tests
+- implement login/authentication
